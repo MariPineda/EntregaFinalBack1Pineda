@@ -3,10 +3,10 @@ const socket = io();
 // Crear producto
 document.getElementById('create-product-form').addEventListener('submit', (e) => {
     e.preventDefault();
-    const titulo = document.getElementById('title').value;
-    const descripcion = document.getElementById('description').value;
-    const precio = document.getElementById('price').value;
-    const dataProducto = { title: titulo, description: descripcion, price: precio };//const dataProducto = { titulo, descripcion, precio };  
+    const title = document.getElementById('title').value;
+    const description = document.getElementById('description').value;
+    const price = document.getElementById('price').value;
+    const dataProducto = { title, description, price }; 
     socket.emit('new-product', dataProducto);
 });
 
@@ -16,7 +16,7 @@ socket.on('update-products', products => {
     productsList.innerHTML = '';
     products.forEach(p => {
         const li = document.createElement('li');
-        li.innerText = `${p.titulo} - $${p.precio}`;
+        li.innerText = `${p.title} - $${p.price}`;
         productsList.appendChild(li);
     });
 });
@@ -28,9 +28,9 @@ socket.on('products', (products) => {
     products.forEach((producto) => {
         const productHTML = `
             <div>
-                <h2>${producto.titulo}</h2>
-                <p>${producto.descripcion}</p>
-                <p>Precio: ${producto.precio}</p>
+                <h2>${producto.title}</h2>
+                <p>${producto.description}</p>
+                <p>Precio: ${producto.price}</p>
             </div>
         `;
         productos.innerHTML += productHTML;
